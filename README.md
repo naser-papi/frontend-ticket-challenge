@@ -59,6 +59,15 @@
     - if user select a available seat the /map/<map_id>/ticket api will be called.
     - if the /map/<map_id>/ticket api would return success state the seat would be reserved and unselectable then.
 
+## E2E Cypress tests:
+
+- [seats.cy.ts](/cypress/e2e/seats.cy.ts) is the only spec file that all needed test for this app are coded in that.
+    - with the cy.intercept function we are simulating calling backed APIs and probable responses.
+    - also with help of the [data.json](/cypress/fixtures/data.json) file we are fake data for tests.
+    - there are 6 different test that are implemented by using the "it" function for each scenario.
+    - it is important to mention that all these tests are E2E testing, not unit testing, so we are testing a scenario
+      not a feature.
+
 ## List of tasks that have done for this challenge (in below order)
 
 - I created the project with the vite default template
