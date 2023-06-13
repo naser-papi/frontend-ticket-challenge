@@ -20,6 +20,19 @@ describe("buy ticket tests", () => {
     cy.visit(`/seats/${data.maps[0]}`);
     cy.contains("loading map seats");
   });
+  it("should show tons of seats smoothly", () => {
+    //generating 100K seat array
+    const rnd = () => Math.floor(Math.random());
+    const seats = Array((100 * 1000) / 4)
+      .fill(0)
+      .map(() => [rnd(), rnd(), rnd(), rnd()]);
+    cy.intercept("GET", `http://localhost:8082/api/map/${data.maps[0]}`, {
+      statusCode: 200,
+      body: seats
+    }).as("seatsApi");
+    cy.visit(`/seats/${data.maps[0]}`);
+    cy.wait("@seatsApi");
+  });
   context("select seat tests", () => {
     beforeEach(() => {
       cy.on("window:alert", (msg: string) => (alerted = msg));
@@ -35,7 +48,10 @@ describe("buy ticket tests", () => {
       cy.get("@seats").should("have.length", 4 * data.map_seats.length);
       cy.get("@seats").each((item, index) => {
         cy.wrap(item).as("seatIndex");
-        cy.get("@seatIndex").should("contain", "#" + Math.floor(index / 4) + "." + (index % 4));
+        cy.get("@seatIndex").should(
+          "contain",
+          "#" + Math.floor(index / 4 + 1) + "." + ((index % 4) + 1)
+        );
         const value = data.map_seats[Math.floor(index / 4)][index % 4];
         if (value === 0) {
           cy.get("@seatIndex").should("not.have.class", "selected");

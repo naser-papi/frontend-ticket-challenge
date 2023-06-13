@@ -2,6 +2,7 @@ export interface ISeat {
   rowIndex: number;
   colIndex: number;
   isReserve?: boolean;
+  isLast?: boolean;
   selectHandler?: (seat: ISeat) => void;
 }
 
