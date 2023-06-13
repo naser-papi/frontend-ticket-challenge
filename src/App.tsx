@@ -1,19 +1,14 @@
 import "./App.css";
-import SeatList from "./SeatList";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./AppRoutes";
 
 function App() {
   return (
-    <div className={"mainContainer"}>
-      <SeatList
-        seats={[
-          [0, 0, 1, 0],
-          [0, 1, 0, 0],
-          [1, 1, 1, 1],
-          [1, 1, 1, 1]
-        ]}
-        handleSelectSeat={() => console.log("selected")}
-      />
-    </div>
+    <main className={"mainContainer"}>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </main>
   );
 }
 
