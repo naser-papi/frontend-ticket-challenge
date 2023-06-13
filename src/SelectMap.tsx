@@ -24,8 +24,8 @@ const SelectMap = () => {
   };
   return (
     <>
+      <p data-cy={"pageMessage"}>list of available maps:</p>
       <section className={"mapsList"}>
-        <p data-cy={"pageMessage"}>list of available maps:</p>
         {maps.length ? (
           maps.map((item) => (
             <button data-cy={"mapButton"} onClick={() => handleSelectMap(item)}>

@@ -1,3 +1,17 @@
+.mapsList {
+    display: flex;
+    flex-flow: row;
+    gap: 10px;
+    padding: 10px;
+}
+
+.mapsList button {
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: red;
+    color: #0e0e0e;
+}
 
 .mainContainer {
     display: flex;
