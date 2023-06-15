@@ -68,6 +68,34 @@
     - it is important to mention that all these tests are E2E testing, not unit testing, so we are testing a scenario
       not a feature.
 
+## test code coverage (istanbul.js)
+
+with code coverage we can achieve this targets:
+
+- This tool can assist in identifying and removing unnecessary code that is no longer in use.
+- It could be advantageous for the QA team to discover any missing or untested test cases.
+- This tool has the ability to monitor sections of the source code that are not currently being tracked, ensuring the
+  overall health and integrity of the code.
+
+after running the single spec file of the project, the generated reports are stored in the “./e2e-coverage” folder, and
+you can access the visual and HTML versions of these reports by browsing this file:
+
+- [code coverage report](/e2e-coverage/lcov-report/index.html)
+
+when you click on above like you can see some awesome reports like these:
+
+- overview:
+
+![test coverage report 1](/doc/images/8.png "overview")
+
+- all components in src folder:
+
+![test coverage report 2](/doc/images/9.png "src folder")
+
+- SeatList Component
+
+![test coverage report 3](/doc/images/10.png "SeatList Component")
+
 ## List of tasks that have done for this challenge (in below order)
 
 - I created the project with the vite default template
@@ -84,3 +112,8 @@
 - adding "test" script to package.json file in order to run Cypress and app in the same time
 - writing tests for different APIs by using API Standard document and mockup the Api result.
 - developing the needed codes for passing written tests in each component
+- adding cypress code coverage by utilizing these libraries after one day research:
+    - vite-plugin-istanbul
+    - @istanbuljs/nyc-config-typescript
+    - cypress/code-coverage
+    - using this cool article https://dev.to/giannispapadakis/code-coverage-with-react-vite-rtl-cypress-12h0

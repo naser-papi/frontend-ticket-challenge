@@ -3,7 +3,7 @@ export interface ISeat {
   colIndex: number;
   isReserve?: boolean;
   isLast?: boolean;
-  selectHandler?: (seat: ISeat) => void;
+  selectHandler?: (seat: ISeat) => Promise<boolean>;
 }
 
 export enum PageRoutes {

@@ -35,7 +35,7 @@ const SeatList = () => {
       limit = seats.length + 1;
     }
     const list = seats.slice(elements.length, limit).map((row: [], rowIndex, rows) => {
-      rowIndex++;
+      rowIndex += (page - 1) * PAGE_COUNT + 1;
       return (
         <ul key={"p" + page + "row" + rowIndex} className={"columnsContainer"}>
           {row.map((col, colIndex, cols) => {
@@ -59,17 +59,23 @@ const SeatList = () => {
     setElements([...elements, ...list]);
   }, [lastSeen, seats.length]);
   const selectSeatHandler = (seat: ISeat) => {
-    callApi({
-      method: "POST",
-      url: `map/${mapId}/ticket`,
-      getBody: () => ({ y: seat.rowIndex, x: seat.colIndex }),
-      successHandler: (data) => {
-        alert("your ticked has been registered successfully");
-        setSeats((prevState) => {
-          prevState[seat.rowIndex - 1][seat.colIndex - 1] = 1;
-          return prevState;
-        });
-      }
+    return new Promise<boolean>((resolve) => {
+      callApi({
+        method: "POST",
+        url: `map/${mapId}/ticket`,
+        getBody: () => ({ y: seat.rowIndex, x: seat.colIndex }),
+        successHandler: (data) => {
+          alert("your ticked has been registered successfully");
+          setSeats((prevState) => {
+            prevState[seat.rowIndex - 1][seat.colIndex - 1] = 1;
+            return prevState;
+          });
+          resolve(true);
+        },
+        failedHandler: () => {
+          resolve(false);
+        }
+      });
     });
   };
 

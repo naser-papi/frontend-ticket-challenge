@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ISeat } from "./models/GeneralModels";
 import useIntersection from "./hooks/useIntersection";
 
@@ -17,6 +17,7 @@ const Seat: React.FC<ISeat> = ({
     ref = useRef();
     inViewport = useIntersection(ref, "0px");
   }
+  const [selcted, setSelected] = useState(isReserve);
 
   useEffect(() => {
     if (inViewport && ref) {
@@ -33,16 +34,19 @@ const Seat: React.FC<ISeat> = ({
   }, [inViewport]);
 
   const classes = ["seat"];
-  if (isReserve) {
+  if (selcted) {
     classes.push("selected");
   }
-  const seatSelectHandler = () => {
-    if (isReserve) {
+  const seatSelectHandler = async () => {
+    if (selcted) {
       alert("seat is reserved");
       return;
     }
     if (selectHandler) {
-      selectHandler({ rowIndex, colIndex });
+      const success = await selectHandler({ rowIndex, colIndex });
+      if (success) {
+        setSelected(true);
+      }
     }
   };
   return (
